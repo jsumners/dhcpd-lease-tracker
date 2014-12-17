@@ -1,0 +1,27 @@
+{
+  "server": {
+    "socketPath": "/tmp/dhcpd-tracker.input"
+  },
+  "winston": {
+    "console": {
+      "level": "debug",
+      "silent": false,
+      "colorize": true,
+      "timestamp": true
+    },
+    "file": {
+      "level": "info",
+      "silent": true,
+      "colorize": false,
+      "timestamp": true,
+      "filename": "/tmp/dhcpd-tracker.log"
+    }
+  },
+  "db": {
+    "url": "sqlite3://db.sqlite3",
+    "poolOptions": {
+      "min": 1,
+      "max": 5
+    }
+  }
+}
