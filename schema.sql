@@ -3,7 +3,7 @@ create user dhcpd;
 create tablespace dhcpd owner dhcpd location '/opt/local/var/db/postgresql94/dhcpd/';
 create database dhcpd owner=dhcpd tablespace=dhcpd;
 
-create table if not exists leases (
+create table leases (
   id bigserial primary key,
   record_date timestamp with time zone,
   ip inet,
