@@ -18,10 +18,17 @@
     }
   },
   "db": {
-    "url": "sqlite3://db.sqlite3",
+    "url": {
+      "adapter": "postgres",
+      "host": "127.0.0.1",
+      "port": 5432,
+      "database": "dhcpd"
+      "user": "dhcpd"
+      "password": ""
+    },
     "poolOptions": {
-      "min": 1,
-      "max": 5
+      "min": 2,
+      "max": 20
     }
   }
 }

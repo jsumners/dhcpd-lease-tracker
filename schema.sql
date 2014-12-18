@@ -1,20 +1,29 @@
-create table if not exists leases (
-  id integer primary key,
-  ip text collate rtrim,
-  startDate integer,
-  endDate integer,
-  tstp integer,
-  tsfp integer,
-  atsfp integer,
-  cltt integer,
-  hardwareAddress text collate rtrim,
-  hardwareType text collate rtrim,
-  uid text collate rtrim,
-  clientHostname text collate rtrim
-);
+create user dhcpd;
+-- Change location to an empty directory owned by the postgres user
+create tablespace dhcpd owner dhcpd location '/opt/local/var/db/postgresql94/dhcpd/';
+create database dhcpd owner=dhcpd tablespace=dhcpd;
 
-create index if not exists ip_index on leases (ip);
-create index if not exists hardwareAddress_index on leases (hardwareAddress);
-create index if not exists hardwareType_index on leases (hardwareType);
-create index if not exists uid_index on leases (uid);
-create index if not exists clientHostname_index on leases (clientHostname);
+create table if not exists leases (
+  id bigserial primary key,
+  record_date timestamp with time zone,
+  ip inet,
+  start_date timestamp with time zone,
+  end_date timestamp with time zone,
+  tstp timestamp with time zone,
+  tsfp timestamp with time zone,
+  atsfp timestamp with time zone,
+  cltt timestamp with time zone,
+  hardware_address macaddr,
+  hardware_type text,
+  uid text,
+  client_hostname text
+) tablespace dhcpd;
+
+create index record_date_index on leases (ip) tablespace dhcpd;
+create index start_date_index on leases (start_date) tablespace dhcpd;
+create index end_date_index on leases (end_date) tablespace dhcpd;
+create index ip_index on leases (ip) tablespace dhcpd;
+create index hardware_address_index on leases (hardware_address) tablespace dhcpd;
+create index hardware_type_index on leases (hardware_type) tablespace dhcpd;
+create index uid_index on leases (uid) tablespace dhcpd;
+create index client_hostname_index on leases (client_hostname) tablespace dhcpd;
