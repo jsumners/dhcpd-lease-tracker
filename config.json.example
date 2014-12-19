@@ -22,8 +22,8 @@
       "adapter": "postgres",
       "host": "127.0.0.1",
       "port": 5432,
-      "database": "dhcpd"
-      "user": "dhcpd"
+      "database": "dhcpd",
+      "user": "dhcpd",
       "password": ""
     },
     "poolOptions": {

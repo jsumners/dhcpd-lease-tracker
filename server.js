@@ -13,6 +13,8 @@ var config = require('./config.json');
 var Parser = require('./lib/Parser');
 var parser = new Parser();
 
+var chr39 = String.fromCharCode(39);
+
 var log = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)(config.winston.console),
@@ -25,13 +27,8 @@ function logLease(lease) {
   db.query(
     'insert into leases (record_date, ip, startDate, endDate, tstp, tsfp, ' +
     'atsfp, cltt, hardwareAddress, hardwareType, uid, clientHostname) values (' +
-    '$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
-    [
-      moment().toISOString(),
-      lease.ip, lease.startDate, lease.endDate, lease.tstp, lease.tsfp,
-      lease.atsfp, lease.cltt, lease.hardwareAddress,lease.hardwareType,
-      lease.uid, lease.clientHostname
-    ]
+    chr39 + moment().toISOString() + chr39 + ',' +
+    lease.psqlValuesString() + ')'
   );
 }
 
