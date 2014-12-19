@@ -24,11 +24,19 @@ var log = new (winston.Logger)({
 
 function logLease(lease) {
   log.debug('%j', lease);
-  db.query(
-    'insert into leases (record_date, ip, start_date, end_date, tstp, tsfp, ' +
+  var query = 'insert into leases (record_date, ip, start_date, end_date, tstp, tsfp, ' +
     'atsfp, cltt, hardware_address, hardware_type, uid, client_hostname) values (' +
     chr39 + moment().toISOString() + chr39 + ',' +
-    lease.psqlValuesString() + ')'
+    lease.psqlValuesString() + ')';
+  
+  db.query(
+    query, [],
+    function queryCB(err, res) {
+      if (err) {
+        log.error('query error: %s', JSON.stringify(err));
+        log.debug('query: %s', query);
+      }
+    }
   );
 }
 

@@ -27,3 +27,8 @@ create index hardware_address_index on leases (hardware_address) tablespace dhcp
 create index hardware_type_index on leases (hardware_type) tablespace dhcpd;
 create index uid_index on leases (uid) tablespace dhcpd;
 create index client_hostname_index on leases (client_hostname) tablespace dhcpd;
+
+grant select on leases to dhcpd;
+grant insert on leases to dhcpd;
+grant delete on leases to dhcpd;
+grant all privileges on leases_id_seq to dhcpd;
