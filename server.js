@@ -28,12 +28,13 @@ function logLease(lease) {
     'atsfp, cltt, hardware_address, hardware_type, uid, client_hostname) values (' +
     chr39 + moment().toISOString() + chr39 + ',' +
     lease.psqlValuesString() + ')';
-  
+
   db.query(
-    query, [],
-    function queryCB(err, res) {
+    query,
+    [],
+    function(err, res) {
       if (err) {
-        log.error('query error: %s', JSON.stringify(err));
+        log.error('error: %s', JSON.stringify(err));
         log.debug('query: %s', query);
       }
     }
